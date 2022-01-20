@@ -4,10 +4,11 @@ function getLocalStorage(key) {
 
 function getCartContents() {
   let markup = "";
-  // This gets the .JSON of the local storage into cartItems
   const cartItems = getLocalStorage("so-cart");
-  // This puts the cartItems into an HTML form
+  console.log((renderCartItem(cartItems)));
+  //const htmlItems = cartItems.map((item) => renderCartItem(item));
   const htmlItems = renderCartItem(cartItems);
+  //document.querySelector(".product-list").innerHTML = htmlItems.join("");
   document.querySelector(".product-list").innerHTML = htmlItems;
   // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
 }
