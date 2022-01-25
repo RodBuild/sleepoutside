@@ -5,12 +5,24 @@ function getLocalStorage(key) {
 function getCartContents() {
   let markup = "";
   const cartItems = getLocalStorage("so-cart");
-  console.log((renderCartItem(cartItems)));
-  //const htmlItems = cartItems.map((item) => renderCartItem(item));
-  const htmlItems = renderCartItem(cartItems);
-  //document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  document.querySelector(".product-list").innerHTML = htmlItems;
-  // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+  // IF not NULL, we render cart Items
+  if (cartItems !== null) {
+  // Render items from local storage (make it HTML). Add rendered htmlItems to a section of the page
+  document.querySelector(".product-list").innerHTML = renderCartItem(cartItems)
+  // EventListener for Delete Button
+  document.querySelector("#removeCart").addEventListener("click", removeCartItem)
+  }
+  // IF NULL, we show that cart is empty
+  else {
+    document.querySelector(".product-list").innerHTML =`<li>Your cart is empty!</li>`
+  }
+}
+
+function removeCartItem() {
+  // DELETE local storage called "so-cart"
+  localStorage.removeItem("so-cart");
+  // UPDATE the cart contents
+  getCartContents();
 }
 
 function renderCartItem(item) {
@@ -26,9 +38,9 @@ function renderCartItem(item) {
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
+  <button id="removeCart" class="cart-card__remove">X</button>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
-  console.log(newItem);
   return newItem;
 }
 
