@@ -16,6 +16,7 @@ function getCartContents() {
   else {
     document.querySelector(".product-list").innerHTML =`<li>Your cart is empty!</li>`
   }
+  addCartTotal()
 }
 
 function removeCartItem() {
@@ -23,6 +24,18 @@ function removeCartItem() {
   localStorage.removeItem("so-cart");
   // UPDATE the cart contents
   getCartContents();
+}
+
+function addCartTotal() {
+  const cartItems = getLocalStorage("so-cart");
+  const element = document.querySelector(".cart-total");
+  
+  if (cartItems == null) {
+    element.innerHTML = ``
+  }
+  else {
+    element.innerHTML += `Total: $${cartItems.FinalPrice}`
+  }
 }
 
 function renderCartItem(item) {
