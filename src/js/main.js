@@ -1,5 +1,8 @@
 import ProductData from "./productData";
 import ProductList from "./productList";
+import { loadHeaderFooter } from './utils.js';
+
+loadHeaderFooter();
 
 const category = 'tents'
 const dataSource = new ProductData(category);
