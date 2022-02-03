@@ -1,4 +1,4 @@
-import { renderListTemplate } from "./utils";
+import { renderListWithTemplate } from "./utils";
 
 export default class ProductList {
     // LIST ELEMENT referers to where the tag <li> where it will be added in HTML
@@ -17,7 +17,7 @@ export default class ProductList {
         // empty list
         this.listElement.innerHTML = '';
         const template = document.getElementById('product-card-template');
-        renderListTemplate(template,this.listElement,list,this.prepareTemplate);
+        renderListWithTemplate(template,this.listElement,list,this.prepareTemplate);
     }
     // to add the data
     prepareTemplate(template, product) {

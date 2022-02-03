@@ -4,13 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Cart</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <template id="cart-card-template">
+      <li class="cart-card divider">
+        <a href="#" class="cart-card__image">
+          <img src="" alt="Image of " />
+        </a>
+        <a href="#">
+          <h2 class="card__name"></h2>
+        </a>
+        <p class="cart-card__color"></p>
+        <p class="cart-card__quantity">qty: </p>
+        <button class="cart-card__remove">X</button>
+        <p class="cart-card__price">$</p>
+      </li>
+    </template>
   </head>
   <body>
     <header class="divider">
       <div class="logo">
-        <img src="images/noun_Tent_2517.svg" alt="tent image for logo" />
-        <a href="index.html"> Sleep<span class="highlight">Outside</span></a>
+        <img src="../images/noun_Tent_2517.svg" alt="tent image for logo" />
+        <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
       </div>
       <div class="cart">
         <a href="cart.html">
@@ -76,11 +90,11 @@
           </li> -->
         </ul>
         <div class="cart-footer hide">
-          <p class="cart-total"></p>
+          <p class="cart-total">Empty Cart</p>
         </div>
       </section>
     </main>
-    <footer>&copy;NOT a real business</footer>
-    <script src="js/cart.js"></script>
+    <footer id="main-footer"></footer>
+    <script src="../js/cart.js" type="module"></script>
   </body>
 </html>

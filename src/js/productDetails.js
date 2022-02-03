@@ -1,4 +1,6 @@
-import { setLocalStorage } from "./utils";
+import { setLocalStorage, getLocalStorage, loadHeaderFooter } from './utils.js';
+
+loadHeaderFooter();
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -14,8 +16,43 @@ export default class ProductDetails {
             .addEventListener('click', this.addToCart.bind(this));
     }
     addToCart() {
-        setLocalStorage("so-cart", this.product);
-    }
+        // to fix the cart we need to get anything that is in the cart already.
+        let cartContents = getLocalStorage('so-cart');
+        //check to see if there was anything there
+        /** STORAGE IS EMPTY **/
+        if(!cartContents){
+          cartContents = [];
+          let arr = [this.product,1]
+          cartContents.push(arr)
+        }
+        /** THERE ARE MORE ITEMS **/
+        else {
+          // loop to find existing items
+          let exists = false
+          cartContents.forEach( item => {
+            // if the item is on the cart, we increase the quantity
+            if (item[0].Id == this.product.Id){
+              item[1] += 1
+              exists = true
+              console.log(item)
+            }
+          })
+          console.log(exists)
+          // if item does not exist
+          if (!exists) {
+            let arr = [this.product, 1]
+            cartContents.push(arr)
+          }
+
+        }
+        //let arr = [this.product,0]
+        //cartContents.push(arr)
+        /**/
+        // then add the current product to the list
+        
+        //cartContents.push(this.product);
+        setLocalStorage('so-cart', cartContents);
+      }
     renderProductDetails() {
         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
         <h2 class="divider">${this.product.NameWithoutBrand}</h2>
