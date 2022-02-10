@@ -17,7 +17,7 @@ export default class CartList {
   
   prepareTemplate(template, product) {
     console.log(product)
-    template.querySelector('.cart-card__image img').src =  product[0].Image;
+    template.querySelector('.cart-card__image img').src =  product[0].Images.PrimarySmall;
     template.querySelector('.cart-card__image img').alt += product[0].Name;
     template.querySelector('.card__name').textContent = product[0].Name;
     template.querySelector('.cart-card__color').textContent = product[0].Colors[0].ColorName;
@@ -50,6 +50,8 @@ export default class CartList {
       list.forEach(product => {
         totalSum += product[0].FinalPrice * product[1]
       })
+      // We round and add some extra cash for us :)
+      totalSum = Math.round(totalSum) - 0.01
       element.innerHTML = `Final Price: $${totalSum}` 
     }
   }
@@ -59,10 +61,12 @@ export default class CartList {
     // DELETE local storage called "so-cart"
     // EventListener for Delete Button
     //addEventListener("click", removeCartItem())
-    document.querySelector(".cart-card__remove").addEventListener("click", function(){
+    document.querySelectorAll(".cart-card__remove").addEventListener("click", function(){
       let e = document.querySelector(".cart-card__price")
-      e.innerHTML = `Xdd`
+      e.innerHTML = `This changed..`
     });
+    // gonna return node list -> convert to array easy
+    // you want to add a loop to make an array and do for each
     //localStorage.removeItem("so-cart");
     // UPDATE the cart contents
     //getCartContents();
