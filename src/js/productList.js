@@ -9,9 +9,13 @@ export default class ProductList {
     }
     async init() {
         // our dataSource will return a promise
-        const list = await this.dataSource.getData();
+        //const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category)
         // render the list
+        console.log(list)
         this.renderList(list)
+        // SET title of current category
+        document.querySelector('.title').innerHTML = this.category;
     }
     renderList(list) {
         // empty list
@@ -22,7 +26,7 @@ export default class ProductList {
     // to add the data
     prepareTemplate(template, product) {
         template.querySelector('a').href +=  product.Id;
-        template.querySelector('img').src = product.Image;
+        template.querySelector('img').src = product.Images.PrimaryMedium;
         template.querySelector('img').alt += product.Name;
         template.querySelector('.card__brand').textContent = product.Brand.Name
         template.querySelector('.card__name').textContent = product.NameWithoutBrand
