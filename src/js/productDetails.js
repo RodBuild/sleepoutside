@@ -16,42 +16,31 @@ export default class ProductDetails {
             .addEventListener('click', this.addToCart.bind(this));
     }
     addToCart() {
-        // to fix the cart we need to get anything that is in the cart already.
-        let cartContents = getLocalStorage('so-cart');
-        //check to see if there was anything there
-        /** STORAGE IS EMPTY **/
-        if(!cartContents){
+        let cartContents = getLocalStorage('so-cart')
+        // If empty, just add the first item
+        if (!cartContents) {
           cartContents = [];
-          let arr = [this.product,1]
-          cartContents.push(arr)
+          this.product.quantity = 1;
+          cartContents.push(this.product);
         }
-        /** THERE ARE MORE ITEMS **/
+        // One item already exists
         else {
-          // loop to find existing items
-          let exists = false
+          let exists = false;
           cartContents.forEach( item => {
-            // if the item is on the cart, we increase the quantity
-            if (item[0].Id == this.product.Id){
-              item[1] += 1
-              exists = true
-              console.log(item)
+            // if the item already exists in the cartContents
+            if (item.Id == this.product.Id) {
+              item.quantity += 1;
+              exists = true;
             }
           })
-          console.log(exists)
-          // if item does not exist
+          // after searching cartContents, we determined that the item does not exist
           if (!exists) {
-            let arr = [this.product, 1]
-            cartContents.push(arr)
+            this.product.quantity = 1;
+            cartContents.push(this.product)
           }
-
         }
-        //let arr = [this.product,0]
-        //cartContents.push(arr)
-        /**/
-        // then add the current product to the list
-        
-        //cartContents.push(this.product);
-        setLocalStorage('so-cart', cartContents);
+        // add the updated cartContents to the localStorage
+        setLocalStorage('so-cart', cartContents)
       }
     renderProductDetails() {
         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
