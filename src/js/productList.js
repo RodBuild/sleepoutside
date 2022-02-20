@@ -12,7 +12,6 @@ export default class ProductList {
         //const list = await this.dataSource.getData();
         const list = await this.dataSource.getData(this.category)
         // render the list
-        console.log(list)
         this.renderList(list)
         // SET title of current category
         document.querySelector('.title').innerHTML = this.category;
@@ -30,7 +29,8 @@ export default class ProductList {
         template.querySelector('img').alt += product.Name;
         template.querySelector('.card__brand').textContent = product.Brand.Name
         template.querySelector('.card__name').textContent = product.NameWithoutBrand
-        template.querySelector('.product-card__price').textContent = product.ListPrice
+        //template.querySelector('.product-card__price').textContent += product.ListPrice + ' $' + product.SuggestedRetailPrice
+        template.querySelector('.product-card__price').innerHTML = ` <strike>$${product.SuggestedRetailPrice}</strike> <br>$${product.ListPrice}</br>`
         return template;
       }
 }

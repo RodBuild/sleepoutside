@@ -18,6 +18,7 @@ export default class CartList {
     const list = getLocalStorage(this.key);
     this.renderList(list);
     this.cartTotal(list);
+    this.increaseCart(list);
     this.removeCart(list);
   }
 
@@ -25,7 +26,7 @@ export default class CartList {
     template.querySelector('.cart-card__image img').src = product.Images.PrimarySmall;
     template.querySelector('.cart-card__image img').alt += product.Name;
     template.querySelector('.card__name').textContent = product.Name;
-    template.querySelector('.cart-card__color').textContent = product.Colors.ColorName;
+    template.querySelector('.cart-card__color').textContent = product.Colors[0].ColorName;
     template.querySelector('.cart-card__quantity').textContent += product.quantity
     template.querySelector('.cart-card__remove').textContent += ''
     template.querySelector('.cart-card__price').textContent += product.FinalPrice;
@@ -34,7 +35,6 @@ export default class CartList {
 
   renderList(list) {
     // make sure the list is empty
-    console.log(list)
     this.listElement.innerHTML = '';
     //get the template
     const template = document.getElementById('cart-card-template');
@@ -72,7 +72,26 @@ export default class CartList {
     }
   }
 
+  async increaseCart(list) {
+    // select all the + buttons
+    const items = document.querySelectorAll('.cart-card__add')
+    for (let i = 0; i < items.length; i++) {
+      // add eventListener to each item
+      items[i].addEventListener('click', await
+        function () {
+          console.log('Item - > ' + i)
+          list[i].quantity += 1;
+          console.log(list[i].quantity)
+          // set new local storage
+          setLocalStorage('so-cart', list);
+          // update page?
+          location.reload()
+        })
+    }
+  }
+
   removeCart(list) {
+    // select all the - buttons
     const items = document.querySelectorAll('.cart-card__remove')
     for (let i = 0; i < items.length; i++) {
       // add eventListener to each item
@@ -92,9 +111,18 @@ export default class CartList {
 
         // set the new local storage
         setLocalStorage('so-cart', list);
-        //update page?
-        
+        // update page?
+        location.reload()
       })
+    }
+    // if all items removed - we DISPLAY EMPTY
+    if (list == 0) {
+      const divElement = document.querySelector('.list-footer');
+      const titleElement = document.querySelector('.product-title');
+      //hide the checkout/total section
+      divElement.className += ' hide'
+      //change myCart title if empty
+      titleElement.innerHTML = `Your Cart is Empty!`
     }
   }
 
