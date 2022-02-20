@@ -46,8 +46,7 @@ export function renderListWithTemplate(template, listElement, list, addDataTempl
   else {*/
   if (!list) {
     console.log('empty')
-  }
-  else {
+  } else {
     list.forEach(product => {
       // if we are on home index
       if (!product[0]) {
@@ -74,11 +73,11 @@ export function renderListWithTemplate(template, listElement, list, addDataTempl
 }
 
 export function renderWithTemplate(template, parent, data, callback) {
-  
+
   let clone = template.content.cloneNode(true);
-  if(callback) {
-  clone = callback(clone, data);
-  
+  if (callback) {
+    clone = callback(clone, data);
+
   }
   if (parent != null)
     parent.appendChild(clone);
@@ -86,19 +85,36 @@ export function renderWithTemplate(template, parent, data, callback) {
 }
 
 export async function loadTemplate(path) {
-const html = await fetch(path).then(convertToText);
-const template = document.createElement('template');
-template.innerHTML = html;
-return template;
+  const html = await fetch(path).then(convertToText);
+  const template = document.createElement('template');
+  template.innerHTML = html;
+  return template;
 
 }
 
 // load the header and footer
 export async function loadHeaderFooter() {
-const header = await loadTemplate('../partials/header.html');
-const footer = await loadTemplate('../partials/footer.html');
-const headerElement = document.getElementById('main-header');
-const footerElement = document.getElementById('main-footer');
-renderWithTemplate(header, headerElement);
-renderWithTemplate(footer, footerElement);
+  const header = await loadTemplate('../partials/header.html');
+  const footer = await loadTemplate('../partials/footer.html');
+  const headerElement = document.getElementById('main-header');
+  const footerElement = document.getElementById('main-footer');
+  renderWithTemplate(header, headerElement);
+  renderWithTemplate(footer, footerElement);
+  // for the icon on top of shopping cart
+  const sscript = document.querySelector('.sscript')
+  const data = getLocalStorage('so-cart')
+  // if localStorage is empty or if it does not exist yet
+  if (!data || data.length == 0) {
+    sscript.style.visibility = 'hidden'
+  }
+  // if it exists, we can sum the total quantity of each item
+  else {
+    var totalQuantity = 0;
+    data.forEach(product => {
+      console.log(product.quantity)
+      totalQuantity += product.quantity;
+    })
+    // add the totalQuantity to the superScript
+    sscript.innerHTML = `${totalQuantity}`
+  }
 }
