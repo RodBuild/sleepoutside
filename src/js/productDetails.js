@@ -1,6 +1,8 @@
-import { setLocalStorage, getLocalStorage, loadHeaderFooter } from './utils.js';
+import { setLocalStorage, getLocalStorage, loadHeaderFooter, loadBreadcrumbs } from './utils.js';
 
 loadHeaderFooter();
+loadBreadcrumbs();
+
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -12,8 +14,14 @@ export default class ProductDetails {
         this.product = await this.dataSource.findProductById(this.productId);
         document.querySelector('main').innerHTML = this.renderProductDetails();
         // add listener to Add to Cart button
-        document.getElementById('addToCart')
-            .addEventListener('click', this.addToCart.bind(this));
+        document.getElementById('addToCart').addEventListener('click', this.addToCart.bind(this));
+        // add breadcrumbs
+        console.log(this.product.Category)
+        const breadcrumbs = document.getElementById('breadcrumb');
+        breadcrumbs.innerHTML += `<ul><li><a href="../index.html">Home</a></li>
+        <li><a href="../product-listing/index.html?category=${this.product.Category}">${this.product.Category}</a></li>
+        <li>${this.product.Brand.Name}</li>
+        </ul>`
     }
     addToCart() {
         let cartContents = getLocalStorage('so-cart')

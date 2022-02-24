@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from './utils.js';
+import { loadBreadcrumbs, loadHeaderFooter } from './utils.js';
 import CheckoutProcess from './CheckoutProcess.js';
 
 loadHeaderFooter();

@@ -118,3 +118,10 @@ export async function loadHeaderFooter() {
     sscript.innerHTML = `${totalQuantity}`
   }
 }
+
+//breadcrumbs
+export async function loadBreadcrumbs() {
+  const breadcrumbs = await loadTemplate('../partials/breadcrumbs.html');
+  const breadcrumbsElement = document.getElementById('main-breadcrumbs');
+  renderWithTemplate(breadcrumbs, breadcrumbsElement)
+}

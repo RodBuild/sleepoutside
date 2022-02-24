@@ -15,6 +15,12 @@ export default class ProductList {
         this.renderList(list)
         // SET title of current category
         document.querySelector('.title').innerHTML = this.category;
+        // add breadcrumbs
+        const breadcrumbs = document.getElementById('breadcrumb');
+        breadcrumbs.innerHTML += `<ul>
+        <li><a href="../index.html">Home</a></li>
+        <li>${this.category}</li>
+        </ul>`
     }
     renderList(list) {
         // empty list
