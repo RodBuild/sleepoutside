@@ -1,8 +1,9 @@
 import ExternalServices from "./externalServices";
 import ProductList from "./productList";
-import { loadHeaderFooter } from './utils.js';
+import { loadBreadcrumbs, loadHeaderFooter } from './utils.js';
 
 loadHeaderFooter();
+loadBreadcrumbs();
 
 const category = 'tents'
 const dataSource = new ExternalServices(category);

@@ -1,8 +1,9 @@
 import ExternalServices from './externalServices.js';
 import ProductList from './productList.js';
-import { loadHeaderFooter, getParam } from './utils.js';
+import { loadHeaderFooter, getParam, loadBreadcrumbs } from './utils.js';
 
 loadHeaderFooter();
+loadBreadcrumbs();
 
 const category = getParam('category');
 // first create an instance of our ExternalServices class.
