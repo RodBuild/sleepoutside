@@ -394,3 +394,23 @@ footer {
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+.vanish {
+  animation-name: vanish;
+  animation-duration: 1800ms;
+  animation-fill-mode: forwards;
+}
+@keyframes vanish{
+  0%{
+    opacity: 1;
+    /*transform: rotateX(90deg);*/
+  }
+  50%{
+    opacity: 0.5;
+    /*transform: rotateX(0deg);*/
+  }
+  100%{
+    display: none;
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+}

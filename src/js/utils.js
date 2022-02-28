@@ -125,7 +125,7 @@ export async function loadHeaderFooter() {
   }
 }
 
-export function alertMessage(message, scroll = true, duration = 3000) {
+export function alertMessage(message, scroll = true, duration = 5000) {
   const alert = document.createElement('div');
   alert.classList.add('alert');
   alert.innerHTML = `<p>${message}</p><span>X</span>`;
@@ -145,9 +145,17 @@ export function alertMessage(message, scroll = true, duration = 3000) {
     window.scrollTo(0,0);
 
   // left this here to show how you could remove the alert automatically after a certain amount of time.
-  //setTimeout(function () {
-  //  main.removeChild(alert);
-  //}, duration);
+  // included animation
+  var done = false
+  setTimeout(function () {
+    alert.classList.add('vanish')
+    done = true
+    if (done) {
+      setTimeout(function() {
+        main.removeChild(alert);
+      }, 1500)
+    }
+  }, duration);
 }
 
 export function removeAllAlerts() {
