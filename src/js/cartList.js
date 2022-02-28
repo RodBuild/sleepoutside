@@ -64,9 +64,11 @@ export default class CartList {
       list.forEach(product => {
         totalSum += product.FinalPrice * product.quantity
       })
+      //console.log(totalSum)
       // We round and add some extra cash for us :)
+      // We round your price to the nearest dollar, and donate that :))
       totalSum = Math.round(totalSum) - 0.01
-      sumElement.innerHTML += ` ${totalSum}`
+      sumElement.innerHTML += ` $${totalSum}`
       // finally we added to the local-storage
       setLocalStorage('cartTotal', totalSum)
     }
