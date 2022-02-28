@@ -1,4 +1,4 @@
-import { loadBreadcrumbs, loadHeaderFooter } from './utils.js';
+import { alertMessage, loadHeaderFooter, removeAllAlerts } from './utils.js';
 import CheckoutProcess from './CheckoutProcess.js';
 
 loadHeaderFooter();
@@ -12,6 +12,16 @@ document
 // listening for click on the button
 document.querySelector('#checkoutSubmit').addEventListener('click', (e) => {
   e.preventDefault();
-
-  myCheckout.checkout();
+  var myForm = document.forms[0];
+  var chk_status = myForm.checkValidity();
+  myForm.reportValidity();
+  if(chk_status) {
+    myCheckout.checkout();
+  }
+  else {
+    console.log('The form is not completed...')
+    //remove existing alerts and add new alert
+    removeAllAlerts()
+    alertMessage('All fields must be completed')
+  }
 });

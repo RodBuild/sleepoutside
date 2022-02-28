@@ -1,4 +1,4 @@
-import { getLocalStorage } from './utils.js';
+import { alertMessage, getLocalStorage, removeAllAlerts, setLocalStorage } from './utils.js';
 import ExternalServices from './ExternalServices.js';
 
 const services = new ExternalServices();
@@ -50,9 +50,13 @@ export default class CheckoutProcess {
     );
     itemNumElement.innerText = this.list.length;
     // calculate the total of all the items in the cart
-    const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
-    this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    this.itemTotal += 0.09
+    //const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
+    //console.log(amounts)
+    //const x = amounts.reduce((sum, item) => sum + item);
+    //console.log(x)
+    //this.itemTotal = amounts.reduce((sum, item) => sum + item);
+    //this.itemTotal += 0.09
+    this.itemTotal = getLocalStorage('cartTotal')
     summaryElement.innerText = '$' + this.itemTotal;
   }
   // assign the correct values to the attributes of the class, then display them
@@ -92,10 +96,20 @@ export default class CheckoutProcess {
     json.items = packageItems(this.list);
     console.log(json);
     try {
+      //externalServices checkout
       const res = await services.checkout(json);
       console.log(res);
+      setLocalStorage('so-cart', []);
+      localStorage.removeItem('cartTotal')
+      location.assign('checkout/checkedout.html');
     } catch (err) {
-      console.log(err);
+      // remove existing alerts..
+      removeAllAlerts();
+      // loop through bad response
+      for (let message in err.message) {
+        //console.log(err.message[message])
+        alertMessage(err.message[message])
+      }    
     }
   }
 }
