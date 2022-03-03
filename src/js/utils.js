@@ -152,7 +152,12 @@ export function alertMessage(message, scroll = true, duration = 5000) {
     done = true
     if (done) {
       setTimeout(function() {
-        main.removeChild(alert);
+        if (document.querySelector('.alert') == null) {
+          console.log('Already Deleted')
+        }
+        else {
+          main.removeChild(alert);   
+        }
       }, 1500)
     }
   }, duration);

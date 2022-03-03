@@ -414,3 +414,42 @@ footer {
     transform: rotateX(90deg);
   }
 }
+/* login styles */
+.login-form {
+  display: flex;
+  flex-wrap: wrap;
+
+  max-width: 450px;
+  margin: 0 auto;
+}
+.login-form > p {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+/* orders styles */
+#orders {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 500px;
+}
+#orders th {
+  background-color: var(--tertiary-color);
+}
+.order-body td {
+  text-align: center;
+}
+.order-body tr:nth-child(even) {
+  background-color: var(--light-grey);
+}
+.genericStyle {
+    padding: 0.3em 0.5em;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+
+}
+.genericStyle a:link,
+.genericStyle a:visited {
+  color: var(--dark-grey);
+  text-decoration: none;
+}
